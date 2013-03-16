@@ -7,7 +7,7 @@ see the readme.txt file for a further discussion
 
 from another file (e.g. main.js), this can be called with:
 
-var register_models = require('./models/register_models');
+var register_models = require('./register_models');
 register_models();
 */
 
