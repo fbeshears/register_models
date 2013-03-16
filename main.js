@@ -13,7 +13,7 @@ function main(cat_name) {
 	});
 
 
-	var register_models = require('./models/register_models');
+	var register_models = require('./register_models');
 	register_models();
 
 
