@@ -18,7 +18,7 @@ register_models();
 		var mongoose = require('mongoose');
 		var Schema = mongoose.Schema; 
 		var files = ['kitten.js', 'comments.js'];
-		var fn = "";
+		var fn = 0;
 		
 		for(fn in files) {
 
