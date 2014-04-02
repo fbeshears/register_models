@@ -11,26 +11,43 @@ var register_models = require('./register_models');
 register_models();
 */
 
+/*jslint         node    : true, continue : true,
+  devel  : true, indent  : 2,    maxerr   : 50,
+  newcap : true, nomen   : true, plusplus : true,
+  regexp : true, sloppy  : true, vars     : false,
+  white  : true
+*/
+
+
 (function(){
+	'use strict';
 
-  module.exports = function(){
+	var register_models;
 
-		var mongoose = require('mongoose');
-		var Schema = mongoose.Schema; 
-		var files = ['kitten.js', 'comments.js'];
-		var fn = 0;
-		
-		for(fn in files) {
+	register_models = function(){
 
-			var path_fn = "./" + files[fn];
+		var exported_model, i,  path_fn, 
+			files 		= ['kitten.js', 'comments.js'];
 
-			var exported_model = require(path_fn);
+		for(i = 0; i < files.length; i++) {
 
-			exported_model(mongoose, Schema);
+			path_fn = "./" + files[i];
+
+			exported_model = require(path_fn);
+
+			exported_model();
 
 		}
 
 
 	};
 
-})();
+	module.exports = register_models;
+
+}());
+
+
+
+
+
+

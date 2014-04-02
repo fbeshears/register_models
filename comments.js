@@ -1,19 +1,28 @@
 //comments.js
+/*jslint         node    : true, continue : true,
+  devel  : true, indent  : 2,    maxerr   : 50,
+  newcap : true, nomen   : true, plusplus : true,
+  regexp : true, sloppy  : true, vars     : false,
+  white  : true
+*/
 
 (function(){
+	'use strict';
 
-  module.exports = function(mongoose, Schema) {
+	var mongoose = require('mongoose');
+
+	module.exports = function() {
 		
 			// this initializes the schema for the model
-	    var Comments = new Schema({
-	        title     : String
-	      , body      : String
-	      , date      : Date
+	    var Comments = new mongoose.Schema({
+	        title     : String,
+	        body      : String,
+	        date      : Date
 	    });
 
 		// now we compile our model and register it 
 
-	    mongoose.model("Comments", Comments);
+	    mongoose.model('Comments', Comments);
 
 			// If, for example, we assume the model's name is Kitten,
 			// then we would have used the following to compile and register it:
@@ -24,4 +33,4 @@
 			// Kitten = mongoose.model('Kitten'); 
 	};
 
-})();
+}());

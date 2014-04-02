@@ -1,8 +1,18 @@
 //kitten.js
 
-(function(){
+/*jslint         node    : true, continue : true,
+  devel  : true, indent  : 2,    maxerr   : 50,
+  newcap : true, nomen   : true, plusplus : true,
+  regexp : true, sloppy  : true, vars     : false,
+  white  : true
+*/
 
-  module.exports = function(mongoose, Schema) {
+(function(){
+	'use strict';
+
+	var mongoose = require('mongoose');
+
+	module.exports = function() {
 
 			// this initializes the schema for the model
 			var Kitten = mongoose.Schema({ name: String});
@@ -11,13 +21,13 @@
 
 			try {
 				Kitten.methods.speak = function () {
-				  var greeting = this.name ? "Meow name is " + this.name : "I don't have a name";
+				  var greeting = this.name ? 'Meow name is ' + this.name : 'I do not have a name';
 				  console.log(greeting);
-				}
+				};
 			}
 			catch(err) {
-				console.error("Still cannot add method speak")
-				throw(err)
+				console.error('Still cannot add method speak');
+				throw err;
 			}
 
 			// now we compile our model and register it 
@@ -34,4 +44,4 @@
 
 	};
 
-})();
+}());
