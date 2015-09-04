@@ -9,6 +9,10 @@
 Call program from the command shell with a cat name:
 
 ```
+// Initialize mongoDB (one terminal window)
+> mongod
+
+// Run model (different terminal window)
 > node main morris
 ```
 

@@ -1,11 +1,4 @@
-//kitten.js
-
-/*jslint         node    : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
-*/
+// kitten.js
 
 (function(){
 	'use strict';
@@ -15,9 +8,9 @@
 	module.exports = function() {
 
 			// this initializes the schema for the model
-			var Kitten = mongoose.Schema({ name: String});
+			var Kitten = mongoose.Schema({name: String});
 
-			// NOTE: methods must be added to the schema before compiling it with mongoose.model()
+			// Note: methods must be added to the schema before compiling it with mongoose.model()
 
 			try {
 				Kitten.methods.speak = function () {
@@ -30,7 +23,7 @@
 				throw err;
 			}
 
-			// now we compile our model and register it 
+			// now we compile our model and register it
 
 			mongoose.model('Kitten', Kitten);
 
@@ -40,8 +33,6 @@
 
 			// once this has been done, one can obtain the model
 			// in other files with
-			// Kitten = mongoose.model('Kitten'); 
-
+			// Kitten = mongoose.model('Kitten');
 	};
-
 }());
