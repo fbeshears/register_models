@@ -2,14 +2,16 @@
 (function(){
     'use strict';
 
-    var cat_name, find_kittens, Kitten, main, save_cat;
+    var cat_name, pup_name, find_kittens, Kitten, find_puppies, Puppy;
+    var main, save_cat, save_pup;
     var mongoose = require('mongoose');
     var register_models = require('./register_models');
 
     register_models();
     Kitten = mongoose.model('Kitten');
+    Puppy = mongoose.model('Puppy');
 
-    find_kittens = function() {
+    find_kittens = function(mTerm) {
 
         Kitten.find(function (err, kittens) {
             if (err) {
@@ -17,17 +19,21 @@
                 throw err;
             }
 
-            if ( kittens.length <= 0 ) {
+            if (kittens.length <= 0 ) {
                 console.log('I have no kittens');
             } else {
                 console.log(kittens);
             }
-            mongoose.disconnect();
+
+            // Only disconnect if not calling puppies (i.e. mTerm = 1)
+            if (mTerm) {
+                mongoose.disconnect();
+            }
         });
     };
 
-    save_cat = function(cat_name) {
-        var cat = new Kitten({ name: cat_name });
+    save_cat = function(cat_name, mongoTerm) {
+        var cat = new Kitten({type: "A Kitty", name: cat_name});
 
         /* Note:
             that since this has a callback, the
@@ -42,44 +48,91 @@
             }
             console.log('saved ' + cat_name);
 
-            find_kittens();
+            if (mongoTerm) {
+                find_kittens(1);
+            } else {
+                find_kittens();
+            }
         });
     };
 
-    main = function(cat_name) {
+    find_puppies = function(mTerm) {
 
-        mongoose.connect('mongodb://localhost/test', function(err){
+        Puppy.find(function (err, puppies) {
+            if (err) {
+                console.error('could not find puppies');
+                throw err;
+            }
+
+            if (puppies.length <= 0 ) {
+                console.log('I have no puppies');
+            } else {
+                console.log(puppies);
+            }
+
+            // will not get to disconnect if no pup_name
+            mongoose.disconnect();
+        });
+    };
+
+    save_pup = function(cat_name) {
+        var pup = new Puppy({type: "A Pup", name: pup_name});
+
+        /* Note:
+            that since this has a callback, the
+            save happens asychronously. So, the find
+            that follows may not (probably will not)
+            retrieve the pup you're trying to save. */
+
+        pup.save(function (err) {
+            if (err) {
+                console.error('could not save ' + pup_name);
+                throw err;          // handle the error
+            }
+            console.log('saved ' + pup_name);
+
+            find_puppies();
+        });
+    };
+
+    main = function(cat_name, pup_name) {
+
+        mongoose.connect('mongodb://localhost/test', function(err) {
 
             if(err) {
                 throw err;
             }
-            console.log('connected to MongoDB');
-            save_cat(cat_name);
+            if (pup_name) {
+                save_cat(cat_name);
+                save_pup(pup_name);
+            } else {
+                save_cat(cat_name, 1);
+            }
         });
     };
 
     if (require.main === module) {
         /*
-        call main from command shell with, for example:
+            * Call main from command shell with, for example:
 
-        > node main.js morris
+            > node main.js kitty doggie
 
-        other cat names to try passing to main:
-        fluffy, morris, felix, sylvester, puss_n_boots
-
+            * Cat name and then dog name
         */
         cat_name = process.argv[2];
-
-        console.log("\ncat_name: " + cat_name + "\n");
-        console.log("typeof cat_name: " + typeof cat_name + "\n");
+        pup_name = process.argv[3];
 
         if (typeof cat_name !== 'undefined' && cat_name !== null) {
 
-            main(cat_name);
+            if (typeof pup_name !== 'undefined' && pup_name !== null) {
+                main(cat_name, pup_name);
+            } else {
+                main(cat_name);
+            }
 
         } else {
-            console.log('Call main with cat name like morris. For example:');
-            console.log('> node main.js morris');
+            console.log("\nCall main with cat and dog names. For example:");
+            console.log("> node main CAT DOG\n");
         }
     }
 }());

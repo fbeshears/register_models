@@ -1,4 +1,4 @@
-// kitten.js
+// kittenNext.js
 
 (function(){
 	'use strict';

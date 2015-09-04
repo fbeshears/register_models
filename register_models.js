@@ -19,7 +19,8 @@ register_models();
 	register_models = function(){
 
 		var exported_model, i, path_fn;
-		var files = ['kitten.js', 'comments.js'];
+		var files = ['./kitten.js', './comments.js', './SubDir/puppies.js'];
+		//var files = ['./SubDir/kittenNest.js', './comments.js', './SubDir/puppies.js'];
 
 		for(i = 0; i < files.length; i++) {
 			path_fn = "./" + files[i];

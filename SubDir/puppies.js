@@ -1,4 +1,4 @@
-// kitten.js
+// puppies.js
 
 (function(){
 	'use strict';
@@ -8,13 +8,13 @@
 	module.exports = function() {
 
 			// this initializes the schema for the model
-			var Kitten = mongoose.Schema({type: String, name: String});
+			var Puppy = mongoose.Schema({type: String, name: String});
 
 			// Note: methods must be added to the schema before compiling it with mongoose.model()
 
 			try {
-				Kitten.methods.speak = function () {
-				  var greeting = this.name ? 'Meow name is ' + this.name : 'I do not have a name';
+				Puppy.methods.speak = function () {
+				  var greeting = this.name ? 'WOOF! My name is ' + this.name : 'I do not have a name';
 				  console.log(greeting);
 				};
 			}
@@ -25,14 +25,14 @@
 
 			// now we compile our model and register it
 
-			mongoose.model('Kitten', Kitten);
+			mongoose.model('Puppy', Puppy);
 
-			// If, for example, we assume the model's name is Kitten,
+			// If, for example, we assume the model's name is Puppy,
 			// then we would have used the following to compile and register it:
-			// mongoose.model('Kitten', Kitten);
+			// mongoose.model('Puppy', Puppy);
 
 			// once this has been done, one can obtain the model
 			// in other files with
-			// Kitten = mongoose.model('Kitten');
+			// Puppy = mongoose.model('Puppy');
 	};
 }());
